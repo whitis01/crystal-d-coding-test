@@ -8,9 +8,15 @@ table {
     margin-right: auto;
 }
 
-th {
+th, td {
+    font-size: 34px;
     width: 23%;
     border-width: 5px;
     border-color: dodgerblue;
+    color: #555555;
 }
 
+th {
+    font-size: 50px;
+    color: darkblue;
+}

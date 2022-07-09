@@ -41,11 +41,12 @@ class CrystalCurl {
   public static function renderPage(string $json = '') : string {
 
     // Open the table and populate it
-    $table = '<table>';
+    $table = '<table id="people">';
 
     // Add the head
-    $heads = self::getHeads($json, self::PEOPLE);
-    $table .= self::buildHeader($heads);
+    $items = self::getItems($json);
+    $table .= self::buildHeader($items);
+    $table .= self::buildBody($json, $items);
 
     // Close out the table and return
     $table .='</table>';
@@ -56,6 +57,7 @@ class CrystalCurl {
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
             crossorigin="anonymous">
           <link rel="stylesheet" href="/resources/css/tables.css">
+          <script src="/resources/js/switcher.js"></script>
         </head>
         <body>'.$table.'</body>
        </html>';
@@ -74,20 +76,46 @@ class CrystalCurl {
 
     $headings = array_pop($heads);
 
+    $columnNumber = 0;
     foreach ($headings as $head => $key) {
       // Check if the header is the key to an array
-      if (is_array($head)) {
-        $key = array_keys($head);
-        $header .= '<th>' . ucfirst($key[0]) . '</th>';
-        // Kick out, we got what we needed this time around
+      if (is_array($key)) {
         continue;
       }
-      $header .= "<th>".ucfirst($head)."</th>";
+      $header .= '<th onclick="sortTable('.$columnNumber.')">'.ucfirst($head).'</th>';
+      $columnNumber++;
     }
 
     // Close out and return
     $header .= '</tr>';
     return $header;
+  }
+
+  private static function buildBody(string $json, array $items) : string {
+
+    $body = '<tr class="body-element">';
+
+    foreach ($items as $key => $value) {
+      $hobby = 'Liking Broccoli';
+      foreach ($value as $criterion) {
+        if (is_array($criterion)) {
+
+          $hobby = self::findAHobby($json, $criterion);
+          continue;
+        }
+        if (is_null($criterion)) {
+          continue;
+        }
+        // Check if the header is the key to an array
+
+        $body .= '<td>'.$criterion.'</td>';
+      }
+      $body .= '<td>'.$hobby.'</td>';
+      $body .= '</tr>';
+    }
+
+
+    return $body;
   }
 
   /**
@@ -98,7 +126,7 @@ class CrystalCurl {
    *
    * @return array
    */
-  private static function getHeads(string $json, string $table = self::PEOPLE) : array {
+  private static function getItems(string $json, string $table = self::PEOPLE) : array {
 
     // Each table needs headers, so get the first record of the data for a specified table and return
     $tables = json_decode($json, JSON_OBJECT_AS_ARRAY);
@@ -108,5 +136,32 @@ class CrystalCurl {
     }
 
     return $headers;
+  }
+
+  /**
+   * Get the hobby of the individual by the person's interest.
+   *
+   * @param string $json
+   * @param array $interests
+   *
+   * @return string
+   */
+  private static function findAHobby(string $json, array $interests) : string {
+
+    $hobbies = self::getItems($json, self::HOBBIES);
+
+    // This is a mess. We could find more hobbies if we save all the hobbies and then use a random number, but for
+    // this exercise one will suffice.
+    foreach ($interests as $interest) {
+      foreach ($hobbies as $hobby => $interestingThings) {
+        foreach ($interestingThings as $interestingThing) {
+          if ($interestingThing === $interest) {
+            return $interest;
+          }
+        }
+      }
+    }
+
+    return 'Agorophobia';
   }
 }
