@@ -2,6 +2,10 @@
 
 require __DIR__ . '/src/Crystal/CrystalCurl.php';
 
-$crystal = new CrystalCurl;
+$json = CrystalCurl::apiCurl();
 
-$crystal::apiCurl();
+//echo $json;
+
+echo CrystalCurl::buildTable($json);
+
+
