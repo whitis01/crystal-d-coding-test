@@ -3,6 +3,10 @@
 
 class CrystalCurl {
 
+  CONST PEOPLE = 'people';
+
+  CONST HOBBIES = 'hobbies';
+
   /**
    * Pulls a JSON string from the specified API URL and returns it.
    *
@@ -28,6 +32,7 @@ class CrystalCurl {
 
   /**
    * @TODO - assign a hobby
+   * @TODO - move the HTML wrapper to a separate function and call this from there
    * Build up the table and assign a hobby
    *
    * @param string $json
@@ -35,9 +40,14 @@ class CrystalCurl {
    */
   public static function renderPage(string $json = '') : string {
 
+    // Open the table and populate it
     $table = '<table>';
-    $heads = self::getHeads($json, 'people');
+
+    // Add the head
+    $heads = self::getHeads($json, self::PEOPLE);
     $table .= self::buildHeader($heads);
+
+    // Close out the table and return
     $table .='</table>';
     return
       '<html>
@@ -59,38 +69,44 @@ class CrystalCurl {
    */
   private static function buildHeader(array $heads) : string {
 
+    // Build the header and assign a class for CSS
     $header = '<tr class="header">';
 
     $headings = array_pop($heads);
 
     foreach ($headings as $head => $key) {
+      // Check if the header is the key to an array
       if (is_array($head)) {
         $key = array_keys($head);
         $header .= '<th>' . ucfirst($key[0]) . '</th>';
+        // Kick out, we got what we needed this time around
         continue;
       }
       $header .= "<th>".ucfirst($head)."</th>";
     }
 
+    // Close out and return
     $header .= '</tr>';
     return $header;
   }
 
   /**
-   * @TODO - add a parameter for people|hobbies tables
-   * Get the heads for a particular table
+   * This gets the heads for a particular table.
    *
    * @param string $json
+   * @param string $table
+   *
    * @return array
    */
-  private static function getHeads(string $json) : array {
+  private static function getHeads(string $json, string $table = self::PEOPLE) : array {
 
-    $encode = json_decode($json, JSON_OBJECT_AS_ARRAY);
-    $heads = [];
-    foreach($encode['people'] as $key => $value) {
-      $heads[] = $value;
+    // Each table needs headers, so get the first record of the data for a specified table and return
+    $tables = json_decode($json, JSON_OBJECT_AS_ARRAY);
+    $headers = [];
+    foreach($tables[$table] as $head) {
+      $headers[] = $head;
     }
 
-    return $heads;
+    return $headers;
   }
 }
