@@ -33,14 +33,22 @@ class CrystalCurl {
    * @param string $json
    * @return string
    */
-  public static function buildTable(string $json = '') : string {
+  public static function renderPage(string $json = '') : string {
 
     $table = '<table>';
     $heads = self::getHeads($json, 'people');
     $table .= self::buildHeader($heads);
     $table .='</table>';
-
-    return $table;
+    return
+      '<html>
+        <head>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+            crossorigin="anonymous">
+          <link rel="stylesheet" href="/resources/css/tables.css">
+        </head>
+        <body>'.$table.'</body>
+       </html>';
   }
 
   /**
@@ -51,18 +59,17 @@ class CrystalCurl {
    */
   private static function buildHeader(array $heads) : string {
 
-    $header = '<tr>';
+    $header = '<tr class="header">';
 
     $headings = array_pop($heads);
 
     foreach ($headings as $head => $key) {
       if (is_array($head)) {
         $key = array_keys($head);
-        $header .= '<th>' . $key[0] . '</th>';
+        $header .= '<th>' . ucfirst($key[0]) . '</th>';
         continue;
       }
-      $header .= "<th>$head</th>";
-      echo $header;
+      $header .= "<th>".ucfirst($head)."</th>";
     }
 
     $header .= '</tr>';

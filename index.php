@@ -6,6 +6,8 @@ $json = CrystalCurl::apiCurl();
 
 //echo $json;
 
-echo CrystalCurl::buildTable($json);
+$page = CrystalCurl::renderPage($json);
 
+
+echo $page;
 

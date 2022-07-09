@@ -1,0 +1,16 @@
+body {
+    margin: 20px;
+    background-color: lightgray;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th {
+    width: 23%;
+    border-width: 5px;
+    border-color: dodgerblue;
+}
+
