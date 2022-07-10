@@ -4,10 +4,10 @@ require __DIR__ . '/CrystalTable.php';
 
 class CrystalRender {
   /**
-   * @TODO - move html into php/html combo file... figure it out.
    * Build up the table and assign a hobby
    *
    * @param string $json
+   *
    * @return string $string
    */
   public static function renderPage(string $json = '') : string {

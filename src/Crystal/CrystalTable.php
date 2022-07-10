@@ -34,7 +34,11 @@ class CrystalTable {
       if (is_array($key)) {
         continue;
       }
-      $header .= '<th onclick="sortTable('.$columnNumber.')">'.ucfirst($head).'</th>';
+
+      // Check if the header is a three letter acronym. This is not overly accurate in future cases.
+      $head = strlen($head) === 3 ? strtoupper($head) : ucfirst($head);
+
+      $header .= '<th onclick="sortTable('.$columnNumber.')">'.$head.'</th>';
       $columnNumber++;
     }
 

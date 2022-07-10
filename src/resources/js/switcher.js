@@ -1,54 +1,72 @@
-
-function sortTable(n) {
-    var table;
-    var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+/**
+ * sortTable() is a function to go through the rows of a table and sort.
+ *
+ * Citation - This function is largely from w3school.com - with some minor adjustments to make it do this assignment.
+ *
+ * @param rowNumber
+ */
+function sortTable(rowNumber) {
+    let table;
+    let rows, switching, i, x, y, switchMe, dir, switchCount = 0;
     table = document.getElementById('people');
     switching = true;
-    //Set the sorting direction to ascending:
-    dir = "asc";
-    /*Make a loop that will continue until
-    no switching has been done:*/
+    // Set the sorting direction to ascending.
+    dir = 'ASC';
+    /**
+     * Make a loop that will continue until
+     * no switching has been done
+     **/
     while (switching) {
-        //start by saying: no switching is done:
+        // No switching to start
         switching = false;
         rows = table.rows;
-        /*Loop through all table rows (except the
-        first, which contains table headers):*/
+        /**
+         * Loop through all table rows (except the
+         * first, which contains table headers)
+         **/
         for (i = 1; i < (rows.length - 1); i++) {
-            //start by saying there should be no switching:
-            shouldSwitch = false;
-            /*Get the two elements you want to compare,
-            one from current row and one from the next:*/
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
-            /*check if the two rows should switch place,
-            based on the direction, asc or desc:*/
-            if (dir === "asc") {
+            // No switching to start
+            switchMe = false;
+            /**
+             * Get the two elements you want to compare,
+             * one from current row and one from the next
+             **/
+            x = rows[i].getElementsByTagName('td')[rowNumber];
+            y = rows[i + 1].getElementsByTagName('td')[rowNumber];
+            /**
+             * Check if the two rows should switch place,
+             * based on the direction, ASC or DESC.
+             **/
+            if (dir === 'ASC') {
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    //if so, mark as a switch and break the loop:
-                    shouldSwitch= true;
+                    // If so, mark as a switch and break the loop.
+                    switchMe= true;
                     break;
                 }
-            } else if (dir == "desc") {
+            } else if (dir === 'DESC') {
                 if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                    //if so, mark as a switch and break the loop:
-                    shouldSwitch = true;
+                    // If so, mark as a switch and break the loop.
+                    switchMe = true;
                     break;
                 }
             }
         }
-        if (shouldSwitch) {
-            /*If a switch has been marked, make the switch
-            and mark that a switch has been done:*/
+        if (switchMe) {
+            /**
+             * If a switch has been marked, make the switch
+             * and mark that a switch has been done
+             **/
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
-            //Each time a switch is done, increase this count by 1:
-            switchcount ++;
+            // Each time a switch is done, increase this count by 1.
+            switchCount++;
         } else {
-            /*If no switching has been done AND the direction is "asc",
-            set the direction to "desc" and run the while loop again.*/
-            if (switchcount == 0 && dir == "asc") {
-                dir = "desc";
+            /**
+             * If no switching has been done AND the direction is 'ASC',
+             * set the direction to 'DESC' and run the while loop again
+             **/
+            if (switchCount === 0 && dir === 'ASC') {
+                dir = 'DESC';
                 switching = true;
             }
         }
