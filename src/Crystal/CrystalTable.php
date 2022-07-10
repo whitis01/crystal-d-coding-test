@@ -47,6 +47,13 @@ class CrystalTable {
     return $header;
   }
 
+  /**
+   * Makes the body for the table.
+   * 
+   * @param string $json
+   * @param array $items
+   * @return string
+   */
   private static function buildBody(string $json, array $items) : string {
 
     $body = '<tr class="body-element">';
