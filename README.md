@@ -14,3 +14,10 @@ php -S localhost:3000
 
 ## Notes
 This code is not extreme tested. If there are issues the author is very sorry :(
+
+## Comments
+This code is an attempt to show not only the ability to code in PHP and Javascript, 
+but to also show the understanding of how a PHP application should be structured. 
+Several things are not fully fleshed out, including composer structure, search functionality
+and polymorphism. This is a very simple application that has some extensibility, but 
+is not perfect.
