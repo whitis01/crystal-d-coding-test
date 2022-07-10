@@ -3,6 +3,12 @@ body {
     background-color: lightgray;
 }
 
+h1 {
+    font-size: 60px;
+    text-align: center;
+    color: darkblue;
+}
+
 table {
     margin-left: auto;
     margin-right: auto;

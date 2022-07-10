@@ -8,9 +8,9 @@ class CrystalTable {
   public static function buildTable($json) : string {
 
     // Add the head
-    $items = CrystalTable::getItems($json);
-    $table = CrystalTable::buildHeader($items);
-    $table .= CrystalTable::buildBody($json, $items);
+    $items = self::getItems($json);
+    $table = self::buildHeader($items);
+    $table .= self::buildBody($json, $items);
 
     return $table;
   }

@@ -11,7 +11,6 @@ class CrystalCurl
    */
   public static function apiCurl(string $api_string = 'https://api.crystal-d.com/codetest'): string
   {
-
     // Open and get the cURL string
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $api_string);
