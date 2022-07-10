@@ -6,12 +6,9 @@ require __DIR__ . '/src/Crystal/CrystalCurl.php';
  */
 require __DIR__ . '/lib/helpers.php';
 
-$json = CrystalCurl::apiCurl();
+$app = new CrystalApp($json);
 
-//echo $json;
-
-$page = CrystalCurl::renderPage($json);
-
+$app->run();
 
 echo $page;
 
