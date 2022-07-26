@@ -9,7 +9,7 @@ class CrystalCurl
    * @param string $api_string - JSON string returned from the specified URL
    * @return bool|string
    */
-  public static function apiCurl(string $api_string = 'https://api.crystal-d.com/codetest'): string
+  public static function apiCurl(string $api_string = 'https://api.crystal-d.com/codetest'): bool|string
   {
     // Open and get the cURL string
     $curl = curl_init();

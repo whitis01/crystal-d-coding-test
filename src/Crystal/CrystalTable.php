@@ -1,11 +1,29 @@
 <?php
 
+/**
+ * @class Crystal Table
+ */
 class CrystalTable {
+
+  /**
+   * Constant for table 'people'
+   */
   const PEOPLE = 'people';
 
+  /**
+   * Constant for table 'hobbies'
+   */
   const HOBBIES = 'hobbies';
 
-  public static function buildTable($json) : string {
+  /**
+   * A primary function that does the logic of building the main application.
+   * This builds the table from the formally defined functions and returns it to the app.
+   *
+   * @param string $json
+   *
+   * @return string
+   */
+  public static function buildTable(string $json) : string {
 
     // Add the head
     $items = self::getItems($json);
@@ -19,6 +37,7 @@ class CrystalTable {
    * Get headers for the table
    *
    * @param array $heads
+   *
    * @return string
    */
   private static function buildHeader(array $heads) : string {
@@ -49,9 +68,10 @@ class CrystalTable {
 
   /**
    * Makes the body for the table.
-   * 
+   *
    * @param string $json
    * @param array $items
+   *
    * @return string
    */
   private static function buildBody(string $json, array $items) : string {
@@ -76,7 +96,6 @@ class CrystalTable {
       $body .= '<td>'.$hobby.'</td>';
       $body .= '</tr>';
     }
-
 
     return $body;
   }
@@ -112,19 +131,18 @@ class CrystalTable {
   private static function findAHobby(string $json, array $interests) : string {
 
     $hobbies = self::getItems($json, self::HOBBIES);
-
     // This is a mess. We could find more hobbies if we save all the hobbies and then use a random number, but for
     // this exercise one will suffice.
     foreach ($interests as $interest) {
       foreach ($hobbies as $hobby => $interestingThings) {
         foreach ($interestingThings as $interestingThing) {
           if ($interestingThing === $interest) {
-            return $interest;
+            return $interestingThing;
           }
         }
       }
     }
 
-    return 'Agorophobia';
+    return 'Agoraphobia';
   }
 }

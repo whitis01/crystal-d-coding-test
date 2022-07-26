@@ -21,8 +21,8 @@ class CrystalRender {
           <script src="/src/resources/js/switcher.js"></script>
           <title>Crystal D Code Test</title>
         </head>
-        <h1>Click A Header To Sort Alpha-Numerically</h1>
         <body>
+          <h1>Click A Header To Sort Alpha-Numerically</h1>
           <table id="people">' .CrystalTable::buildTable($json).'</table>
         </body>
       </html>';
